@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+class heap{
+    int arr[100];
+    int size;
+    public:
+    heap(){
+        size=-1;
+    }
+    void insert(int val){
+        size=size+1;
+        arr[size]=val;
+        int idx=size;
+        while(idx>0){
+            if(arr[idx]>arr[(idx-1)/2]){
+                swap(arr[idx],arr[(idx-1)/2]);
+                idx=(idx-1)/2;
+            }
+            else{
+                return;
+            }
+        }
+    }
+    void print(){
+        for(int j=0;j<=size;j++){
+            cout<<arr[j]<<" ";
+        }
+    }
+};
+int main()
+{
+    heap* head=new heap();
+    head->insert(3);
+    head->insert(5);
+    head->insert(7);
+    head->insert(8);
+    head->insert(12);
+    
+    head->print();
+
+    return 0;
+}
