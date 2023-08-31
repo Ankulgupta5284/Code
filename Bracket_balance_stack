@@ -1,38 +1,32 @@
 #include<iostream>
 #include<stack>
 using namespace std;
-void balance(string &str){
-	stack<char> st;
-	int k=0;
-	for(int i=0;i<str.length();i++){
-		if(str[i]=='(' or str[i]=='[' or str[i]=='{'){
-			char ch=str[i];
-			st.push(ch);
-			}
-			else if( (str[i]==')' ) and (st.size()>0 )and (st.top()=='(')){
-				st.pop();
-			}
-		else if( (str[i]=='}' ) and (st.size()>0 ) and (st.top()=='{')){
-				st.pop();
-			}
-		else if( (str[i]==']' ) and (st.size()>0 ) and (st.top()=='[')){
-				st.pop();
-			}
-			else{
-				cout<<"unbalance"<<endl;
-				k++;
-				break;
-			}
-		
-		}
-	
-	if(k==0){
-		cout<<"balance";
-	}
-	}
+
+   bool ispar(string &str) {
+    stack<char> st;
+
+    for (int i = 0; i < str.length(); i++) {
+        if (str[i] == '(' || str[i] == '[' || str[i] == '{') {
+            st.push(str[i]);
+        } else if (str[i] == ')' || str[i] == ']' || str[i] == '}') {
+            if (st.empty()) {
+                return false;  // Closing bracket without a matching opening bracket
+            } else if ((str[i] == ')' && st.top() == '(') ||
+                       (str[i] == ']' && st.top() == '[') ||
+                       (str[i] == '}' && st.top() == '{')) {
+                st.pop();  // Matching opening bracket found
+            } else {
+                return false;  // Mismatched brackets
+            }
+        }
+    }
+
+    return st.empty();  // If stack is empty, all brackets are balanced
+}
 int main(){
-	string str="()[]{{}})";
-	balance(str);
+	string str="()[]{{}}";
+	bool ans=ispar(str);
+	cout<<ans;
 	
 	
 	
